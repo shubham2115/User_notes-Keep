@@ -1,6 +1,9 @@
-from .apis import AddNote, NotesOperation, Home
+from .apis import AddNote, NotesOperation, Home ,NoteLabel,GetByLabel
 notes_routes = [
-    (AddNote, '/addnotes'),
-    (NotesOperation, '/notes/<topic>'),
-    (Home, '/')
+    (AddNote, '/notes'),
+    (NotesOperation, '/notes/<id>'),
+    (Home, '/'),
+    (NoteLabel, '/label/<id>'),
+    (GetByLabel, '/getbylabel/<label>'),
+
 ]

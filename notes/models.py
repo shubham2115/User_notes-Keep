@@ -1,4 +1,5 @@
-from mongoengine import Document, StringField, SequenceField
+from mongoengine import Document, StringField, SequenceField, ListField, ReferenceField, PULL,URLField,BooleanField
+from labels import models
 
 
 class Notes(Document):
@@ -7,6 +8,9 @@ class Notes(Document):
     topic = StringField(max_length=100)
     tittle = StringField(max_length=100)
     desc = StringField(max_length=10000)
+    url = URLField()
+    pin = BooleanField(default=False)
+    label = ListField(ReferenceField(models.Label, reverse_delete_rule=PULL))
 
     def __repr__(self):
         return f"{self.id}- {self.tittle}"
@@ -14,4 +18,3 @@ class Notes(Document):
     def to_dict(self):
         dict_itr = {'id': self.id, 'topic': self.topic, 'desc': self.desc, 'tittle': self.tittle}
         return dict_itr
-

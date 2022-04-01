@@ -21,6 +21,9 @@ class Registration(Resource):
         for itr in data_:
             if itr.user_name == data.user_name:
                 return make_response(jsonify(message='UserName Already Taken'), 409)
+        for itr in data_:
+            if itr.email == data.email:
+                return make_response(jsonify(message="Email Already Taken"), 409)
         data.save()
         token = get_token(data.user_name)
         short_token = url_short(token)
