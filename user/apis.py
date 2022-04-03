@@ -45,15 +45,8 @@ class Login(Resource):
                 if password == data_.password:
                     session['logged_in'] = True
                     session['user_name'] = data_.user_name
-                    #     token = get_token(dataDict['username'])
-                    #     short_token = url_short(token)
-                    #     token_url = r"http://127.0.0.1:80/activate?token=" + f"{short_token}"
-                    #     msg_text = f"Hello! {dataDict['username']} click the link to activate your account {token_url}"
-                    #     mail_sender(data_.email, msg_text)
                     token = get_token(dataDict['username'])
                     short_token = url_short(token)
-                    # session['logged_in'] = True
-                    # session['user_name'] = dataDict['username']
                     return {'message': 'logged_in', 'token': short_token}
             return {"message": "incorrect password"}
 

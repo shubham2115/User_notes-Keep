@@ -49,9 +49,17 @@ class NotesOperation(Resource):
         return {'message': 'Notes Deleted'}
 
     def get(self, id):
+        key = f"get_user{id}"
+        print(key)
+        value = r.get(key)
+        if value:
+            data = json.loads(value)
+            return data
         note = Notes.objects(id=id).first()
         print(note)
-        result = {"user_name": note.user_name, "topic": note.topic, "desc": note.desc}
+        result = {"user_name": note.user_name, "topic": note.topic, "desc": note.desc,"label":
+        [lb.label for lb in note.label]}
+        do_cache(key, result, 30)
         return jsonify(result)
 
 
@@ -61,10 +69,10 @@ class Home(Resource):
     def get(self, user_name):
 
         key = f"get_user{user_name}"
+        print(key)
         value = r.get(key)
         if value:
             data = json.loads(value)
-            print("abc")
             return data
         list_notes = []
         data_ = Users.objects.filter(user_name=user_name)
@@ -73,7 +81,6 @@ class Home(Resource):
         data_user = Users.objects()
         for data in data_user:
             note = Notes.objects.filter(user_name=data.user_name)
-            print(note)
             list_user = []
             for itr in note:
                 dict_itr = itr.to_dict()
@@ -81,8 +88,6 @@ class Home(Resource):
                 dict_all[data.user_name] = list_user
 
         do_cache(key, dict_all, 30)
-        print("123")
-
         return make_response(dict_all)
 
 
