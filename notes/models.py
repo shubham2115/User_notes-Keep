@@ -11,6 +11,7 @@ class Notes(Document):
     url = URLField()
     pin = BooleanField(default=False)
     label = ListField(ReferenceField(models.Label, reverse_delete_rule=PULL))
+    is_trash = BooleanField(default=False)
 
     def __repr__(self):
         return f"{self.id}- {self.tittle}"

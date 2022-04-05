@@ -30,7 +30,7 @@ class Registration(Resource):
         token_url = r"http://127.0.0.1:80/activate?token=" + f"{short_token}"
         msg_text = f"Hello! {dataDict['name']} click the link to activate your account {token_url}"
         mail_sender(dataDict['email'], msg_text)
-        return {'message': 'User Added Check your registered mail id to activate account'}
+        return {'message': 'User Added Check your registered mail id to activate account','code':'200'}
 
 
 class Login(Resource):
@@ -47,7 +47,7 @@ class Login(Resource):
                     session['user_name'] = data_.user_name
                     token = get_token(dataDict['username'])
                     short_token = url_short(token)
-                    return {'message': 'logged_in', 'token': short_token}
+                    return {'message': 'logged_in', 'token': short_token,'code':'200'}
             return {"message": "incorrect password"}
 
 
@@ -58,7 +58,7 @@ class Activate(Resource):
         data = Users.objects.filter(user_name=user_name).first()
         data.update(is_active=True)
 
-        return {'message': 'Your Account is Active.Now you can login'}
+        return {'message': 'Your Account is Active.Now you can login','code':'200'}
 
 
 class LogOut(Resource):

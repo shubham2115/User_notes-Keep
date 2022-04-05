@@ -25,7 +25,7 @@ class AddNote(Resource):
         body['user_name'] = session['user_name']
         notes = Notes(**body)
         notes.save()
-        return {'message': 'Notes Added'}
+        return {'message': 'Notes Added', 'code': 200}
 
 
 class NotesOperation(Resource):
@@ -38,7 +38,7 @@ class NotesOperation(Resource):
             return {'Error': str(e)}
         desc = request.form.get('Description')
         note.update(desc=desc)
-        return {'message': 'Notes updated'}
+        return {'message': 'Notes updated', 'code': 200}
 
     def delete(self, id):
         try:
@@ -46,7 +46,7 @@ class NotesOperation(Resource):
         except Exception as e:
             return {'Error': str(e)}
         note.delete()
-        return {'message': 'Notes Deleted'}
+        return {'message': 'Notes Deleted', 'code': 200}
 
     def get(self, id):
         key = f"get_user{id}"
@@ -57,8 +57,8 @@ class NotesOperation(Resource):
             return data
         note = Notes.objects(id=id).first()
         print(note)
-        result = {"user_name": note.user_name, "topic": note.topic, "desc": note.desc,"label":
-        [lb.label for lb in note.label]}
+        result = {"user_name": note.user_name, "topic": note.topic, "desc": note.desc, "label":
+            [lb.label for lb in note.label]}
         do_cache(key, result, 30)
         return jsonify(result)
 
@@ -106,14 +106,14 @@ class NoteLabel(Resource):
         try:
             note = Notes.objects.filter(user_name=session['user_name'], id=id).first()
             if not note:
-                return {'Error': 'Note is not present'}
+                return {'Error': 'Note is not present', 'code': 400}
         except Exception as e:
             return {'Error': str(e)}
         for data in note.label:
             if data.label == label:
-                return {'Error': 'label already present in this note'}
+                return {'Error': 'label already present in this note', 'code': '400'}
         note.update(push__label=label_data)
-        return {'message': 'label added'}
+        return {'message': 'label added', 'code': '200'}
 
     def patch(self, id):
         req_data = request.data
@@ -133,7 +133,7 @@ class NoteLabel(Resource):
                 label_list.append(label2)
                 note.update(label=label_list)
                 return {'message': 'label updated'}
-            return {'Error': 'Label not present in given note'}
+            return {'Error': 'Label not present in given note', 'code': '400'}
 
     def delete(self, id):
         req_data = request.data
@@ -149,8 +149,8 @@ class NoteLabel(Resource):
                 print(data.label)
                 list_label.remove(data)
                 note.update(label=list_label)
-                return {'message': 'label removed'}
-        return {'Error': 'label not found in this note'}
+                return {'message': 'label removed', 'code': '200'}
+        return {'Error': 'label not found in this note', 'code': '400'}
 
 
 class GetByLabel(Resource):
@@ -167,10 +167,26 @@ class GetByLabel(Resource):
                     list_notes.append(dict_)
         return {'data': list_notes}
 
+class PinNote(Resource):
+    method_decorators = {'patch': [auth.login_required]}
 
-class PinNote():
-    def get(self):
-        note = Notes.objects(id=id).first()
-        print(note)
-        result = {"user_name": note.user_name, "topic": note.topic, "desc": note.desc}
-        return jsonify(result)
+    def patch(self,id):
+        note = Notes.objects.filter(id=id)
+        if not note:
+            return {'Error': 'Note not found', 'code': 404}
+        note.update(pin=True)
+        return {'message': 'Note is pinned', 'code': 200}
+
+
+class NoteAddTrash(Resource):
+    method_decorators = {'patch': [auth.login_required]}
+
+    def patch(self,id):
+        note = Notes.objects.filter(id=id)
+        if not note:
+            return {'Error': 'Note not found', 'code': 404}
+        note.update(is_trash=True)
+        return {'message': 'Note is moved to trash', 'code': 200}
+
+
+
