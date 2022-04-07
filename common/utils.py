@@ -1,6 +1,11 @@
-import os
 import smtplib
-from email.message import EmailMessage
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
+import os
+import jwt
+import datetime
+from flask import request, jsonify
+from functools import wraps
 from dotenv import load_dotenv
 load_dotenv()
 import redis
@@ -14,15 +19,42 @@ r = redis.Redis(
     port=6379
 )
 
-def mail_sender(email, msg_text):
+def get_token(user_name):
+    token = jwt.encode({'User': user_name, 'Exp': str(datetime.datetime.utcnow() + datetime.timedelta(seconds=600))},
+                       str(os.environ.get('SECRET_KEY')))
+    return token
+
+
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if 'access-token' in request.headers:
+            short_token = request.headers.get('access-token')
+        else:
+            short_token = request.args.get('token')
+        token = url_short(token_dict[int(short_token)])
+        if not token:
+            return jsonify(message='Token is missing!')
+        try:
+            data = jwt.decode(token, str(os.environ.get('SECRET_KEY')), algorithms=["HS256"])
+        except:
+            return jsonify(message='Token is invalid')
+
+        return f(data['User'])
+
+    return decorated
+
+
+def mail_sender(email, template):
     EMAIL_ADDRESS = os.environ.get("EMAIL_ADDRESS")
     EMAIL_PASS = os.environ.get("EMAIL_PASS")
 
-    msg = EmailMessage()
+    msg = MIMEMultipart()
     msg['Subject'] = 'Activate Account'
     msg['From'] = EMAIL_ADDRESS
     msg['To'] = email
-    msg.set_content(f"{msg_text}")
+    # msg.set_content(f"{msg_text}")
+    msg.attach(MIMEText(template,'html'))
 
     with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
         smtp.login(EMAIL_ADDRESS, EMAIL_PASS)
@@ -34,7 +66,7 @@ def url_short(token):
     token_dict.__setitem__(key, token)
     return key
 
-def do_cache(key, value, expire_time):
+def set_cache(key, value, expire_time):
     json_dict = json.dumps(value)
     r.set(key, json_dict)
     r.expire(key, expire_time)

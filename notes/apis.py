@@ -1,13 +1,13 @@
 import json
 from flask_restful import Resource
 from flask import request, make_response, session, jsonify
-from .utils import token_required
+from common.utils import token_required,set_cache
 from .models import Notes
 from user.model import Users
 from middleware import auth
 from labels import models as md
 import redis
-from common.utils import do_cache
+from common.exception import NoteNotExist
 
 r = redis.Redis(
     host='localhost',
@@ -15,21 +15,10 @@ r = redis.Redis(
 )
 
 
-class Error(Exception):
-    pass
-
-
-class CustomError(Error):
-    pass
-
-
 class AddNote(Resource):
     method_decorators = {'post': [auth.login_required]}
 
     def post(self):
-        # req_data = request.data
-        # body = json.loads(req_data)
-        # body['user_name'] = session['user_name']
         dataDict = request.get_json()
         topic = dataDict['topic']
         tittle = dataDict['tittle']
@@ -45,14 +34,13 @@ class NotesOperation(Resource):
     def patch(self, id):
         try:
             note = Notes.objects(id=id)
-            if note.count() > 0:
+            if note:
                 desc = request.form.get('Description')
                 note.update(desc=desc)
                 return {'message': 'Notes updated', 'code': 200}
-            else:
-                raise CustomError
-        except CustomError:
-            return {"Message": "id does not Exist"}
+            raise NoteNotExist(note)
+        except NoteNotExist:
+            return {"message": "Note id not exist"}
 
     def delete(self, id):
         try:
@@ -73,7 +61,7 @@ class NotesOperation(Resource):
         print(note)
         result = {"user_name": note.user_name, "topic": note.topic, "desc": note.desc, "label":
             [lb.label for lb in note.label]}
-        do_cache(key, result, 30)
+        set_cache(key, result, 30)
         return jsonify(result)
 
 
@@ -101,7 +89,7 @@ class Home(Resource):
                 list_user.append(dict_itr)
                 dict_all[data.user_name] = list_user
 
-        do_cache(key, dict_all, 30)
+        set_cache(key, dict_all, 30)
         return make_response(dict_all)
 
 

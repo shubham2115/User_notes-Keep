@@ -1,8 +1,8 @@
 from flask_restful import Resource
-from flask import request, make_response, session, json, jsonify
-from user.utils import get_token, token_required
+from flask import request, make_response, session, json, jsonify, render_template
 from user.model import Users
-from common.utils import mail_sender, url_short
+from common.utils import mail_sender, url_short,token_required,get_token
+
 
 
 class Error(Exception):
@@ -35,9 +35,11 @@ class Registration(Resource):
         data.save()
         token = get_token(data.user_name)
         short_token = url_short(token)
-        token_url = r"http://127.0.0.1:80/activate?token=" + f"{short_token}"
-        msg_text = f"Hello! {dataDict['name']} click the link to activate your account {token_url}"
-        mail_sender(dataDict['email'], msg_text)
+        # token_url = r"http://127.0.0.1:80/activate?token=" + f"{short_token}"
+        # msg_text = f"Hello! {dataDict['name']} click the link to activate your account {token_url}"
+        template = render_template('index.html')
+        print("hey")
+        mail_sender(email, template)
         return {'message': 'User Added Check your registered mail id to activate account', 'code': 200}
 
 
