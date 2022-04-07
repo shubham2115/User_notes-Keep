@@ -28,4 +28,5 @@ def token_required(f):
             return jsonify(message='Token is invalid')
 
         return f(data['User'])
+
     return decorated

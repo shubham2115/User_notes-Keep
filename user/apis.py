@@ -5,6 +5,14 @@ from user.model import Users
 from common.utils import mail_sender, url_short
 
 
+class Error(Exception):
+    pass
+
+
+class PasswordException(Error):
+    pass
+
+
 class Registration(Resource):
     def post(self):
         data_ = Users.objects()
@@ -30,7 +38,7 @@ class Registration(Resource):
         token_url = r"http://127.0.0.1:80/activate?token=" + f"{short_token}"
         msg_text = f"Hello! {dataDict['name']} click the link to activate your account {token_url}"
         mail_sender(dataDict['email'], msg_text)
-        return {'message': 'User Added Check your registered mail id to activate account','code':'200'}
+        return {'message': 'User Added Check your registered mail id to activate account', 'code': 200}
 
 
 class Login(Resource):
@@ -47,21 +55,38 @@ class Login(Resource):
                     session['user_name'] = data_.user_name
                     token = get_token(dataDict['username'])
                     short_token = url_short(token)
-                    return {'message': 'logged_in', 'token': short_token,'code':'200'}
+                    return {'message': 'logged_in', 'token': short_token, 'code': 200}
             return {"message": "incorrect password"}
 
 
 class Activate(Resource):
     method_decorators = {'get': [token_required]}
 
-    def get(self, user_name):
-        data = Users.objects.filter(user_name=user_name).first()
+    def get(self, user_name, email):
+        data = Users.objects.filter(user_name=user_name, email=email).first()
         data.update(is_active=True)
 
-        return {'message': 'Your Account is Active.Now you can login','code':'200'}
+        msg_text = f"Hello! {user_name} Your account is activated"
+        mail_sender({email}, msg_text)
+
+        return {'message': 'Your Account is Active.Now you can login', 'code': 200}
 
 
 class LogOut(Resource):
     def get(self):
         session['logged_in'] = False
         return {'message': 'logged out'}
+
+
+class ChangePassword(Resource):
+    def patch(self):
+        if session['logged_in']:
+            dataDict = request.get_json()
+            user_name = session['user_name']
+            new_password = dataDict['new_password']
+            data = Users.objects.filter(user_name=user_name).first()
+            if data:
+                data.update(password=new_password)
+                return {'message': 'password changed successfully', 'code': 200}
+        else:
+            return {"message": "User is not logged in"}

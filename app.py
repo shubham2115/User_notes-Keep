@@ -5,6 +5,7 @@ from routes import all_routes
 from flask_caching import Cache
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -27,6 +28,10 @@ cache = Cache(app)
 
 
 # -------------------EndPoints---------------------------------
+
+
+
+
 def confirm_api():
     for data in all_routes:
         api_class = data[0]

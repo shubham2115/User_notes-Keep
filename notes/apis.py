@@ -7,7 +7,7 @@ from user.model import Users
 from middleware import auth
 from labels import models as md
 import redis
-from common.utils import do_cache, get_cache
+from common.utils import do_cache
 
 r = redis.Redis(
     host='localhost',
@@ -15,15 +15,26 @@ r = redis.Redis(
 )
 
 
+class Error(Exception):
+    pass
+
+
+class CustomError(Error):
+    pass
+
+
 class AddNote(Resource):
     method_decorators = {'post': [auth.login_required]}
 
     def post(self):
-        req_data = request.data
-        body = json.loads(req_data)
-        print(session['user_name'])
-        body['user_name'] = session['user_name']
-        notes = Notes(**body)
+        # req_data = request.data
+        # body = json.loads(req_data)
+        # body['user_name'] = session['user_name']
+        dataDict = request.get_json()
+        topic = dataDict['topic']
+        tittle = dataDict['tittle']
+        desc = dataDict['desc']
+        notes = Notes(topic=topic, tittle=tittle, desc=desc)
         notes.save()
         return {'message': 'Notes Added', 'code': 200}
 
@@ -34,11 +45,14 @@ class NotesOperation(Resource):
     def patch(self, id):
         try:
             note = Notes.objects(id=id)
-        except Exception as e:
-            return {'Error': str(e)}
-        desc = request.form.get('Description')
-        note.update(desc=desc)
-        return {'message': 'Notes updated', 'code': 200}
+            if note.count() > 0:
+                desc = request.form.get('Description')
+                note.update(desc=desc)
+                return {'message': 'Notes updated', 'code': 200}
+            else:
+                raise CustomError
+        except CustomError:
+            return {"Message": "id does not Exist"}
 
     def delete(self, id):
         try:
@@ -167,10 +181,11 @@ class GetByLabel(Resource):
                     list_notes.append(dict_)
         return {'data': list_notes}
 
+
 class PinNote(Resource):
     method_decorators = {'patch': [auth.login_required]}
 
-    def patch(self,id):
+    def patch(self, id):
         note = Notes.objects.filter(id=id)
         if not note:
             return {'Error': 'Note not found', 'code': 404}
@@ -181,12 +196,9 @@ class PinNote(Resource):
 class NoteAddTrash(Resource):
     method_decorators = {'patch': [auth.login_required]}
 
-    def patch(self,id):
+    def patch(self, id):
         note = Notes.objects.filter(id=id)
         if not note:
             return {'Error': 'Note not found', 'code': 404}
         note.update(is_trash=True)
         return {'message': 'Note is moved to trash', 'code': 200}
-
-
-
