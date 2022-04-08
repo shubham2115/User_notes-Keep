@@ -7,6 +7,6 @@ notes_routes = [
     (NoteLabel, '/label/<id>'),
     (GetByLabel, '/getbylabel/<label>'),
     (PinNote, '/pin/<id>'),
-    (GetPinNote,'/')
+    (GetPinNote,'/pinnote')
 
 ]

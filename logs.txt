@@ -546,3 +546,114 @@
 2022-04-08 22:17:43 WARNING- * Debugger is active!
 2022-04-08 22:17:43 INFO- * Debugger PIN: 329-236-594
 2022-04-08 22:17:43 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-08 22:29:18 INFO- * Detected change in 'D:\\User_notes-Keep\\user\\apis.py', reloading
+2022-04-08 22:29:18 INFO- * Restarting with stat
+2022-04-08 22:29:19 WARNING- * Debugger is active!
+2022-04-08 22:29:19 INFO- * Debugger PIN: 329-236-594
+2022-04-08 22:29:20 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-08 22:33:06 INFO- * Detected change in 'D:\\User_notes-Keep\\user\\apis.py', reloading
+2022-04-08 22:33:07 INFO- * Restarting with stat
+2022-04-08 22:33:08 WARNING- * Debugger is active!
+2022-04-08 22:33:08 INFO- * Debugger PIN: 329-236-594
+2022-04-08 22:33:08 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-08 22:40:51 INFO- * Detected change in 'D:\\User_notes-Keep\\user\\apis.py', reloading
+2022-04-08 22:40:51 INFO- * Restarting with stat
+2022-04-08 22:40:53 WARNING- * Debugger is active!
+2022-04-08 22:40:53 INFO- * Debugger PIN: 329-236-594
+2022-04-08 22:40:53 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-08 22:42:36 INFO- * Detected change in 'D:\\User_notes-Keep\\user\\apis.py', reloading
+2022-04-08 22:42:36 INFO- * Restarting with stat
+2022-04-08 22:42:37 WARNING- * Debugger is active!
+2022-04-08 22:42:37 INFO- * Debugger PIN: 329-236-594
+2022-04-08 22:42:37 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-08 22:45:11 INFO- * Detected change in 'D:\\User_notes-Keep\\notes\\apis.py', reloading
+2022-04-08 22:45:12 INFO- * Restarting with stat
+2022-04-08 22:45:13 WARNING- * Debugger is active!
+2022-04-08 22:45:13 INFO- * Debugger PIN: 329-236-594
+2022-04-08 22:45:13 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-08 22:45:14 INFO- * Detected change in 'D:\\User_notes-Keep\\notes\\apis.py', reloading
+2022-04-08 22:45:14 INFO- * Restarting with stat
+2022-04-08 22:45:15 WARNING- * Debugger is active!
+2022-04-08 22:45:15 INFO- * Debugger PIN: 329-236-594
+2022-04-08 22:45:15 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-08 22:45:38 INFO-127.0.0.1 - - [08/Apr/2022 22:45:38] "POST /login HTTP/1.1" 200 -
+2022-04-08 22:49:52 INFO- * Detected change in 'D:\\User_notes-Keep\\app.py', reloading
+2022-04-08 23:08:17 INFO- * Restarting with stat
+2022-04-08 23:08:18 WARNING- * Debugger is active!
+2022-04-08 23:08:18 INFO- * Debugger PIN: 209-006-244
+2022-04-08 23:08:18 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-08 23:08:39 INFO- * Detected change in 'D:\\User_notes-Keep\\app.py', reloading
+2022-04-08 23:08:40 INFO- * Restarting with stat
+2022-04-08 23:29:37 INFO- * Restarting with stat
+2022-04-08 23:29:38 WARNING- * Debugger is active!
+2022-04-08 23:29:38 INFO- * Debugger PIN: 209-006-244
+2022-04-08 23:29:38 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-08 23:30:35 INFO- * Detected change in 'D:\\User_notes-Keep\\notes\\apis.py', reloading
+2022-04-08 23:30:36 INFO- * Restarting with stat
+2022-04-08 23:30:51 INFO- * Restarting with stat
+2022-04-08 23:30:51 WARNING- * Debugger is active!
+2022-04-08 23:30:51 INFO- * Debugger PIN: 209-006-244
+2022-04-08 23:30:51 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-08 23:31:02 INFO-127.0.0.1 - - [08/Apr/2022 23:31:02] "[37mGET /notes/31 HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs.html HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/css/highlight.default.css HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/css/screen.css HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/lib/shred.bundle.js HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/lib/jquery-1.8.0.min.js HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/lib/jquery.slideto.min.js HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/lib/jquery.wiggle.min.js HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/lib/jquery.ba-bbq.min.js HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/lib/handlebars-1.0.0.js HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/lib/underscore-min.js HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/lib/backbone-min.js HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/lib/swagger.js HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/swagger-ui.js HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/lib/highlight.7.3.pack.js HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/lib/swagger-oauth.js HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/images/pet_store_api.png HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/images/logo_small.png HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/images/wordnik_api.png HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/resource_list.json HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/resource_list.json HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs HTTP/1.1[0m" 200 -
+2022-04-08 23:32:08 INFO-127.0.0.1 - - [08/Apr/2022 23:32:08] "[37mGET /docs/_/static/images/throbber.gif HTTP/1.1[0m" 200 -
+2022-04-08 23:32:28 INFO-127.0.0.1 - - [08/Apr/2022 23:32:28] "[35m[1mGET /notes/30 HTTP/1.1[0m" 500 -
+2022-04-08 23:32:28 INFO-127.0.0.1 - - [08/Apr/2022 23:32:28] "[37mGET /docs.html?__debugger__=yes&cmd=resource&f=jquery.js&_=1649440948056 HTTP/1.1[0m" 200 -
+2022-04-08 23:32:28 INFO-127.0.0.1 - - [08/Apr/2022 23:32:28] "[37mGET /docs.html?__debugger__=yes&cmd=resource&f=debugger.js&_=1649440948312 HTTP/1.1[0m" 200 -
+2022-04-08 23:32:28 INFO-127.0.0.1 - - [08/Apr/2022 23:32:28] "[37mGET /docs.html?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 200 -
+2022-04-08 23:32:28 INFO-127.0.0.1 - - [08/Apr/2022 23:32:28] "[37mGET /docs.html?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1[0m" 200 -
+2022-04-08 23:32:28 INFO-127.0.0.1 - - [08/Apr/2022 23:32:28] "[37mGET /docs.html?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 200 -
+2022-04-08 23:33:01 INFO-127.0.0.1 - - [08/Apr/2022 23:33:01] "[37mPOST /notes HTTP/1.1[0m" 200 -
+2022-04-08 23:33:06 INFO-127.0.0.1 - - [08/Apr/2022 23:33:06] "[37mPOST /login HTTP/1.1[0m" 200 -
+2022-04-08 23:33:23 INFO-127.0.0.1 - - [08/Apr/2022 23:33:23] "[37mPOST /login HTTP/1.1[0m" 200 -
+2022-04-08 23:33:27 INFO-127.0.0.1 - - [08/Apr/2022 23:33:27] "[37mGET /notes/31 HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs.html HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/css/highlight.default.css HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/css/screen.css HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/lib/shred.bundle.js HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/lib/jquery-1.8.0.min.js HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/lib/jquery.slideto.min.js HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/lib/jquery.wiggle.min.js HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/lib/jquery.ba-bbq.min.js HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/lib/handlebars-1.0.0.js HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/lib/underscore-min.js HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/lib/backbone-min.js HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/lib/swagger.js HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/swagger-ui.js HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/lib/highlight.7.3.pack.js HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/lib/swagger-oauth.js HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/images/pet_store_api.png HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/images/wordnik_api.png HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/images/logo_small.png HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/resource_list.json HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/resource_list.json HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs HTTP/1.1[0m" 200 -
+2022-04-08 23:33:35 INFO-127.0.0.1 - - [08/Apr/2022 23:33:35] "[37mGET /docs/_/static/images/throbber.gif HTTP/1.1[0m" 200 -
+2022-04-08 23:33:46 INFO-127.0.0.1 - - [08/Apr/2022 23:33:46] "[35m[1mGET /notes/31 HTTP/1.1[0m" 500 -
+2022-04-08 23:33:46 INFO-127.0.0.1 - - [08/Apr/2022 23:33:46] "[37mGET /docs.html?__debugger__=yes&cmd=resource&f=jquery.js&_=1649441026218 HTTP/1.1[0m" 200 -
+2022-04-08 23:33:46 INFO-127.0.0.1 - - [08/Apr/2022 23:33:46] "[37mGET /docs.html?__debugger__=yes&cmd=resource&f=debugger.js&_=1649441026241 HTTP/1.1[0m" 200 -
+2022-04-08 23:33:46 INFO-127.0.0.1 - - [08/Apr/2022 23:33:46] "[37mGET /docs.html?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 200 -
+2022-04-08 23:33:46 INFO-127.0.0.1 - - [08/Apr/2022 23:33:46] "[37mGET /docs.html?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 200 -
+2022-04-08 23:33:46 INFO-127.0.0.1 - - [08/Apr/2022 23:33:46] "[37mGET /docs.html?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1[0m" 200 -

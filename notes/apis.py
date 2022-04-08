@@ -2,7 +2,7 @@ import json
 from flask_restful import Resource
 from flask import request, make_response, session, jsonify
 
-from common import logger, swagger
+from common import logger
 from common.utils import token_required, set_cache
 from .models import Notes
 from user.model import Users
@@ -10,6 +10,8 @@ from middleware import auth
 from labels import models as md
 import redis
 from common.exception import NotExist, EmptyError
+from flask_restful_swagger import swagger
+
 
 r = redis.Redis(
     host='localhost',
@@ -21,6 +23,7 @@ class AddNote(Resource):
     method_decorators = {'post': [auth.login_required]}
 
     def post(self):
+
         dataDict = request.get_json()
         user_name = session['user_name']
         topic = dataDict['topic']
@@ -64,6 +67,8 @@ class NotesOperation(Resource):
         except NotExist as e:
             return e.__dict__
 
+    @swagger.model
+    @swagger.operation(notes='swagger is working')
     def get(self, id):
         if session['logged_in']:
             key = f"get_user{id}"
