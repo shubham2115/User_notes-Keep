@@ -23,7 +23,11 @@ class AddNote(Resource):
     method_decorators = {'post': [auth.login_required]}
 
     def post(self):
-
+        """
+            This Api is build to Addnotes
+            @param request: topic,tittle,desc
+            @return : Notes created
+        """
         dataDict = request.get_json()
         user_name = session['user_name']
         topic = dataDict['topic']
@@ -45,6 +49,11 @@ class NotesOperation(Resource):
     method_decorators = {'patch': [auth.login_required], 'delete': [auth.login_required]}
 
     def patch(self, id):
+        """
+            This api is build to update notes
+            @param request: primary key = user_id
+            @return: Notes updated
+        """
         try:
             note = Notes.objects(id=id)
             if note:
@@ -58,6 +67,11 @@ class NotesOperation(Resource):
             return {"Error": exception.Error, 'code': exception.code}
 
     def delete(self, id):
+        """
+               This API is used to delete existing note
+               @param note_id: primary_key of the specific note
+               @return: Noted deleted
+               """
         try:
             note = Notes.objects(id=id).first()
             if not note:
@@ -70,6 +84,11 @@ class NotesOperation(Resource):
     @swagger.model
     @swagger.operation(notes='swagger is working')
     def get(self, id):
+        """
+               This API is used to get particular note using id
+               @param note_id: primary_key of the specific note
+               @return: Notes
+               """
         if session['logged_in']:
             key = f"get_user{id}"
             value = r.get(key)
@@ -90,6 +109,11 @@ class NotesOperation(Resource):
 
 
 class Home(Resource):
+    """
+            This API is used to get all notes
+           @param note_id: used_id from session
+           @return: all notes of logged in user
+        """
     method_decorators = {'get': [token_required]}
 
     def get(self, user_name):
@@ -172,9 +196,7 @@ class NoteLabel(Resource):
 
         list_label = note.label
         for data in list_label:
-            print(data.label)
             if data.label == label:
-                print(data.label)
                 list_label.remove(data)
                 note.update(label=list_label)
                 return {'message': 'label removed', 'code': '200'}
@@ -182,9 +204,15 @@ class NoteLabel(Resource):
 
 
 class GetByLabel(Resource):
+
     method_decorators = {'get': [auth.login_required]}
 
     def get(self, label):
+        """
+                   This API is used to delete and trash existing note
+                   @param note_id: primary_key of the specific note
+                   @return: trash or delete the note if it is already trashed
+        """
         list_notes = []
         note = Notes.objects.filter(user_name=session['user_name'])
         for data in note:
@@ -197,9 +225,16 @@ class GetByLabel(Resource):
 
 
 class PinNote(Resource):
+
     method_decorators = {'patch': [auth.login_required]}
 
     def patch(self, id):
+        """
+                 This API is used to pin Note
+                 @param note_id: primary_key of the specific note
+                 @return: Note pin will be True
+        """
+
         note = Notes.objects.filter(id=id)
         try:
             if not note:
@@ -211,9 +246,15 @@ class PinNote(Resource):
 
 
 class GetPinNote(Resource):
+
     method_decorators = {'get': [auth.login_required]}
 
     def get(self):
+        """
+                  This API is used to Get pinned notes
+                  @param note_id: primary_key of the specific note
+                  @return: pinned not will display at the top
+        """
         dict_all = {}
         data_user = Users.objects()
         for data in data_user:
@@ -233,9 +274,15 @@ class GetPinNote(Resource):
 
 
 class NoteAddTrash(Resource):
+
     method_decorators = {'patch': [auth.login_required]}
 
     def patch(self, id):
+        """
+            This API is used to add notes to trash
+            @param note_id: primary_key of the specific note
+            @return: note will added to Trash
+        """
         note = Notes.objects.filter(id=id)
         try:
             if not note:

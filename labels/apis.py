@@ -9,6 +9,11 @@ class AddLabel(Resource):
     method_decorators = {'post': [auth.login_required]}
 
     def post(self):
+        """
+            This API is used to Addlabel
+            @param label_id: user_id from session
+            @return: label will added to note
+        """
         req_data = request.data
         body = json.loads(req_data)
         body['user_name'] = session['user_name']
@@ -24,6 +29,11 @@ class DeleteLabel(Resource):
     method_decorators = {'delete': [auth.login_required]}
 
     def delete(self, label):
+        """
+            This API is used to delete label
+            @param label_id: label id
+            @return: label will delete
+           """
         valid_data = valid_delete_label(label)
         user_name = session['user_name']
         if valid_data:

@@ -9,7 +9,8 @@ class Registration(Resource):
     def post(self):
         """
             This api is build for registration of user
-            user need to fill all the feilds
+            @param request:user need to fill all the feilds
+            @return:User Added Check your registered mail id to activate account
         """
         data_ = Users.objects()
         dataDict = request.get_json()
@@ -41,7 +42,9 @@ class Registration(Resource):
 class Login(Resource):
     def post(self):
         """"
-         This api is use to login user have to Enter correct user_id and password
+         This api is use to login user
+         @param request: user need to enter all necessary credentials
+         @return:User logged in
          """
         dataDict = request.get_json()
         if session['logged_in']:
@@ -82,6 +85,7 @@ class LogOut(Resource):
     def get(self):
         """"
             this api is build to logout user
+            @return:User will logged out
         """
 
         session['logged_in'] = False
@@ -92,6 +96,7 @@ class ChangePassword(Resource):
     def patch(self):
         """
             This API is used to Change password
+            @param request: new password
             @return: password will change successfully
         """
         if session['logged_in']:
@@ -111,8 +116,8 @@ class ForgotPassword(Resource):
     def post(self):
         """
             this api is built to reset the password
-            user need to enter user name and user will
-            receive mail on entered email_id to reset the password
+            @param request:user need to enter user name and user will
+            @return:receive mail on entered email_id to reset the password
         """
 
         dataDict = request.get_json()
