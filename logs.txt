@@ -701,3 +701,16 @@
 2022-04-09 00:30:02 INFO-127.0.0.1 - - [09/Apr/2022 00:30:02] "[37mDELETE /label/32 HTTP/1.1[0m" 200 -
 2022-04-09 00:30:45 INFO-127.0.0.1 - - [09/Apr/2022 00:30:45] "[37mPOST /label/32 HTTP/1.1[0m" 200 -
 2022-04-09 00:30:50 INFO-127.0.0.1 - - [09/Apr/2022 00:30:50] "[37mDELETE /label/32 HTTP/1.1[0m" 200 -
+2022-04-09 00:43:00 INFO- * Restarting with stat
+2022-04-09 00:43:01 WARNING- * Debugger is active!
+2022-04-09 00:43:01 INFO- * Debugger PIN: 209-006-244
+2022-04-09 00:43:01 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-09 00:57:43 INFO- * Detected change in 'D:\\User_notes-Keep\\app.py', reloading
+2022-04-09 00:57:44 INFO- * Restarting with stat
+2022-04-09 00:57:46 WARNING- * Debugger is active!
+2022-04-09 00:57:46 INFO- * Debugger PIN: 209-006-244
+2022-04-09 00:57:46 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-09 01:00:22 INFO- * Restarting with stat
+2022-04-09 01:00:23 WARNING- * Debugger is active!
+2022-04-09 01:00:23 INFO- * Debugger PIN: 209-006-244
+2022-04-09 01:00:23 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
