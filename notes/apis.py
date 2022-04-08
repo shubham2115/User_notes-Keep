@@ -111,7 +111,7 @@ class NotesOperation(Resource):
 class Home(Resource):
     """
             This API is used to get all notes
-           @param note_id: used_id from session
+           @param note_id: used_id from session.
            @return: all notes of logged in user
         """
     method_decorators = {'get': [token_required]}

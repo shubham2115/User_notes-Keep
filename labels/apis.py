@@ -11,7 +11,7 @@ class AddLabel(Resource):
     def post(self):
         """
             This API is used to Addlabel
-            @param label_id: user_id from session
+            @param label_id: user_id from session,
             @return: label will added to note
         """
         req_data = request.data

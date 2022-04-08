@@ -8,7 +8,7 @@ from common.exception import PasswordMissmatched, NotExist
 class Registration(Resource):
     def post(self):
         """
-            This api is build for registration of user
+            This api is build for registration of user.
             @param request:user need to fill all the feilds
             @return:User Added Check your registered mail id to activate account
         """
