@@ -6,11 +6,13 @@ from flask_caching import Cache
 from dotenv import load_dotenv
 
 
+
 load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'SECRET_KEY'
 api = Api(app)
+
 
 # connecting with database
 app.config['MONGODB_SETTINGS'] = {

@@ -20,7 +20,7 @@ r = redis.Redis(
 )
 
 def get_token(user_name):
-    token = jwt.encode({'User': user_name, 'Exp': str(datetime.datetime.utcnow() + datetime.timedelta(seconds=600))},
+    token = jwt.encode({'User': user_name, 'Exp': str(datetime.datetime.utcnow() + datetime.timedelta(seconds=60000))},
                        str(os.environ.get('SECRET_KEY')))
     return token
 
@@ -32,13 +32,13 @@ def token_required(f):
             short_token = request.headers.get('access-token')
         else:
             short_token = request.args.get('token')
-        token = url_short(token_dict[int(short_token)])
+        token = token_dict[int(short_token)]
         if not token:
             return jsonify(message='Token is missing!')
         try:
             data = jwt.decode(token, str(os.environ.get('SECRET_KEY')), algorithms=["HS256"])
         except:
-            return jsonify(message='Token is invalid')
+             return jsonify(message='Token is invalid')
 
         return f(data['User'])
 

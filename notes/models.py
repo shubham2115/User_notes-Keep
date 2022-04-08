@@ -17,5 +17,5 @@ class Notes(Document):
         return f"{self.id}- {self.tittle}"
 
     def to_dict(self):
-        dict_itr = {'id': self.id, 'topic': self.topic, 'desc': self.desc, 'tittle': self.tittle}
+        dict_itr = {'id': self.id, 'topic': self.topic, 'desc': self.desc, 'tittle': self.tittle,'is_pin':self.pin}
         return dict_itr

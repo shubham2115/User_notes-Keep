@@ -1,13 +1,15 @@
 import json
 from flask_restful import Resource
 from flask import request, make_response, session, jsonify
-from common.utils import token_required,set_cache
+
+from common import logger, swagger
+from common.utils import token_required, set_cache
 from .models import Notes
 from user.model import Users
 from middleware import auth
 from labels import models as md
 import redis
-from common.exception import NoteNotExist
+from common.exception import NotExist, EmptyError
 
 r = redis.Redis(
     host='localhost',
@@ -20,12 +22,20 @@ class AddNote(Resource):
 
     def post(self):
         dataDict = request.get_json()
+        user_name = session['user_name']
         topic = dataDict['topic']
         tittle = dataDict['tittle']
         desc = dataDict['desc']
-        notes = Notes(topic=topic, tittle=tittle, desc=desc)
-        notes.save()
-        return {'message': 'Notes Added', 'code': 200}
+        try:
+            if not topic:
+                raise EmptyError("topic should not be empty", 404)
+            notes = Notes(user_name=user_name, topic=topic, tittle=tittle, desc=desc)
+            if notes:
+                notes.save()
+                logger.logging.info('note created')
+                return {'message': 'Notes Added', 'code': 200}
+        except EmptyError as e:
+            return e.__dict__
 
 
 class NotesOperation(Resource):
@@ -37,32 +47,41 @@ class NotesOperation(Resource):
             if note:
                 desc = request.form.get('Description')
                 note.update(desc=desc)
+                logger.logging.info('Notes updated')
                 return {'message': 'Notes updated', 'code': 200}
-            raise NoteNotExist(note)
-        except NoteNotExist:
-            return {"message": "Note id not exist"}
+            raise NotExist("Note not exist", 400)
+        except NotExist as exception:
+            logger.logging.info("Id not Exist Error occur")
+            return {"Error": exception.Error, 'code': exception.code}
 
     def delete(self, id):
         try:
             note = Notes.objects(id=id).first()
-        except Exception as e:
-            return {'Error': str(e)}
-        note.delete()
-        return {'message': 'Notes Deleted', 'code': 200}
+            if not note:
+                raise NotExist("Note not exist", 400)
+            note.delete()
+            return {'message': 'Notes Deleted', 'code': 200}
+        except NotExist as e:
+            return e.__dict__
 
     def get(self, id):
-        key = f"get_user{id}"
-        print(key)
-        value = r.get(key)
-        if value:
-            data = json.loads(value)
-            return data
-        note = Notes.objects(id=id).first()
-        print(note)
-        result = {"user_name": note.user_name, "topic": note.topic, "desc": note.desc, "label":
-            [lb.label for lb in note.label]}
-        set_cache(key, result, 30)
-        return jsonify(result)
+        if session['logged_in']:
+            key = f"get_user{id}"
+            value = r.get(key)
+            if value:
+                data = json.loads(value)
+                return data
+            note = Notes.objects(id=id).first()
+            try:
+                if not note:
+                    raise NotExist("Note not Exist", 404)
+                if note:
+                    result = {"user_name": note.user_name, "topic": note.topic, "desc": note.desc, "label":
+                        [lb.label for lb in note.label]}
+                    set_cache(key, result, 30)
+                    return jsonify(result)
+            except NotExist as e:
+                return e.__dict__
 
 
 class Home(Resource):
@@ -76,19 +95,21 @@ class Home(Resource):
         if value:
             data = json.loads(value)
             return data
-        list_notes = []
-        data_ = Users.objects.filter(user_name=user_name)
 
         dict_all = {}
         data_user = Users.objects()
         for data in data_user:
-            note = Notes.objects.filter(user_name=data.user_name)
             list_user = []
-            for itr in note:
-                dict_itr = itr.to_dict()
+            pin_note = Notes.objects.filter(pin=True, is_trash=False)
+            for note in pin_note:
+                dict_itr = note.to_dict()
                 list_user.append(dict_itr)
                 dict_all[data.user_name] = list_user
-
+            unpinned_note = Notes.objects.filter(pin=False, is_trash=False)
+            for note in unpinned_note:
+                dict_itr = note.to_dict()
+                list_user.append(dict_itr)
+                dict_all[data.user_name] = list_user
         set_cache(key, dict_all, 30)
         return make_response(dict_all)
 
@@ -108,9 +129,9 @@ class NoteLabel(Resource):
         try:
             note = Notes.objects.filter(user_name=session['user_name'], id=id).first()
             if not note:
-                return {'Error': 'Note is not present', 'code': 400}
+                raise NotExist('Note is not present', 400)
         except Exception as e:
-            return {'Error': str(e)}
+            return e.__dict__
         for data in note.label:
             if data.label == label:
                 return {'Error': 'label already present in this note', 'code': '400'}
@@ -164,10 +185,10 @@ class GetByLabel(Resource):
         for data in note:
             for lb in data.label:
                 if lb.label == label:
-                    dict_ = {'id': data.id, 'topic': data.topic, 'desc': data.desc,
+                    dict_ = {'user_name': data.user_name, 'id': data.id, 'topic': data.topic, 'desc': data.desc,
                              'label': [lb.label for lb in data.label]}
                     list_notes.append(dict_)
-        return {'data': list_notes}
+        return {'Note': list_notes}
 
 
 class PinNote(Resource):
@@ -175,10 +196,35 @@ class PinNote(Resource):
 
     def patch(self, id):
         note = Notes.objects.filter(id=id)
-        if not note:
-            return {'Error': 'Note not found', 'code': 404}
-        note.update(pin=True)
-        return {'message': 'Note is pinned', 'code': 200}
+        try:
+            if not note:
+                raise NotExist("Note is not present", 404)
+            note.update(pin=True)
+            return {'message': 'Note is pinned', 'code': 200}
+        except Exception as e:
+            return e.__dict__
+
+
+class GetPinNote(Resource):
+    method_decorators = {'get': [auth.login_required]}
+
+    def get(self):
+        dict_all = {}
+        data_user = Users.objects()
+        for data in data_user:
+            note = Notes.objects.filter(user_name=data.user_name)
+            list_user = []
+            if note.pin:
+                for itr in note:
+                    dict_itr = itr.to_dict()
+                    list_user.append(dict_itr)
+                    dict_all[data.user_name] = list_user
+                if not note.pin:
+                    for itr in note:
+                        dict_itr = itr.to_dict()
+                        list_user.append(dict_itr)
+                        dict_all[data.user_name] = list_user
+        return make_response(dict_all)
 
 
 class NoteAddTrash(Resource):
@@ -186,7 +232,10 @@ class NoteAddTrash(Resource):
 
     def patch(self, id):
         note = Notes.objects.filter(id=id)
-        if not note:
-            return {'Error': 'Note not found', 'code': 404}
-        note.update(is_trash=True)
-        return {'message': 'Note is moved to trash', 'code': 200}
+        try:
+            if not note:
+                raise NotExist("Note is not present", 404)
+            note.update(is_trash=True)
+            return {'message': 'Note is moved to trash', 'code': 200}
+        except Exception as e:
+            return e.__dict__
