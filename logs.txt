@@ -714,3 +714,15 @@
 2022-04-09 01:00:23 WARNING- * Debugger is active!
 2022-04-09 01:00:23 INFO- * Debugger PIN: 209-006-244
 2022-04-09 01:00:23 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-09 01:08:30 INFO- * Detected change in 'D:\\User_notes-Keep\\app.py', reloading
+2022-04-09 01:08:30 INFO- * Restarting with stat
+2022-04-09 01:08:32 WARNING- * Debugger is active!
+2022-04-09 01:08:32 INFO- * Debugger PIN: 209-006-244
+2022-04-09 01:08:32 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-09 01:10:19 INFO- * Restarting with stat
+2022-04-09 01:10:19 WARNING- * Debugger is active!
+2022-04-09 01:10:19 INFO- * Debugger PIN: 209-006-244
+2022-04-09 01:10:19 INFO- * Running on http://127.0.0.1:130/ (Press CTRL+C to quit)
+2022-04-09 01:10:25 INFO-127.0.0.1 - - [09/Apr/2022 01:10:25] "[37mGET /logout HTTP/1.1[0m" 200 -
+2022-04-09 01:10:29 INFO-127.0.0.1 - - [09/Apr/2022 01:10:29] "[37mPOST /login HTTP/1.1[0m" 200 -
+2022-04-09 01:10:54 INFO-127.0.0.1 - - [09/Apr/2022 01:10:54] "[37mPOST /notes HTTP/1.1[0m" 200 -
