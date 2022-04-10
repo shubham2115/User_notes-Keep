@@ -131,6 +131,8 @@ class Home(Resource):
             list_user = []
             pin_note = Notes.objects.filter(pin=True, is_trash=False)
             for note in pin_note:
+                if not note:
+                    return {"message":"Notes not added"}
                 dict_itr = note.to_dict()
                 list_user.append(dict_itr)
                 dict_all[data.user_name] = list_user

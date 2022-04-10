@@ -61,6 +61,8 @@ class Login(Resource):
                     token = get_token(dataDict['username'])
                     short_token = url_short(token)
                     return {'message': 'logged_in', 'token': short_token, 'code': 200}
+            if not data_:
+                return {"message":"user not found"}
             try:
                 if password is not data_.password:
                     raise PasswordMissmatched("password does not match", 404)
